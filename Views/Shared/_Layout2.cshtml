@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+         /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+         #map {
+             height: 100%;
+         }
+         /* Optional: Makes the sample page fill the window. */
+         html, body {
+             height: 100%;
+             margin: 0;
+             padding: 0;
+         }
+    </style>
+</head>
+<body>
+    @RenderBody()
+    <div id="map"></div>
+
+    <script>
+
+
+
+
+        /*
+         
+       // This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+var map;
+
+function initMap() {
+  // Create the map.
+  var pyrmont = {lat: 36.1694408, lng: -115.1438966};
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: pyrmont,
+    zoom: 17
+  });
+
+
+ var circle = new google.maps.Circle({
+ map:map,
+ center: new google.maps.LatLng(pyrmont.lat, pyrmont.lng),
+ fillColor: "#92D050",
+ fillOpacity:.6,
+ strokeColor:"#FF0000",
+ strokeOpacity:.8,
+ strokeWeight:2
+ });
+
+ circle.setRadius(5000);
+ circle.setMap(circle);
+
+
+ var circle2 = new google.maps.Circle({
+ map:map,
+ center: new google.maps.LatLng(pyrmont.lat-.09, pyrmont.lng),
+ fillColor: "#92D050",
+ fillOpacity:.6,
+ strokeColor:"#FF0000",
+ strokeOpacity:.8,
+ strokeWeight:2
+ });
+
+ circle2.setRadius(5000);
+ circle2.setMap(circle2);
+
+
+
+ // Define the LatLng coordinates for the polygon.
+  var triangleCoords = [
+      {lat: 36.1694408, lng: -115.1438966},
+      {lat: 36.1694408+.10, lng: -115.1438966},
+      {lat: 36.1694408+.20, lng: -115.1438966}
+
+      //{lat: 36.1694408+.10, lng: -115.1438966+.10},
+      //{lat: 36.1694408+.10, lng: -115.1438966+.10*2},
+  ];
+
+  // Construct the polygon.
+  var bermudaTriangle = new google.maps.Polygon({
+    paths: triangleCoords,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 3,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35
+  });
+  bermudaTriangle.setMap(map);
+
+  //var path = bermudaTriangle.getPath().getArray();
+  var path = bermudaTriangle.getPath();
+
+   for (var i=0; i < path.getLength(); i++)
+   {
+      var xy = path.getAt(i);
+      console.log(xy.lat() + " " +  xy.lng());
+
+       var circle2 = new google.maps.Circle({
+       map:map,
+       center: new google.maps.LatLng(xy.lat(), xy.lng()),
+       fillColor: "#92D050",
+       fillOpacity:.6,
+       strokeColor:"#FF0000",
+       strokeOpacity:.8,
+       strokeWeight:2
+       });
+
+       circle2.setRadius(5000);
+       circle2.setMap(circle2);
+
+
+   }
+
+  // Create the places service.
+  var service = new google.maps.places.PlacesService(map);
+  var getNextPage = null;
+  var moreButton = document.getElementById('more');
+  moreButton.onclick = function() {
+    moreButton.disabled = true;
+    if (getNextPage) getNextPage();
+  };
+
+ // for(var ii=0; ii < 1; i++){
+
+   //pyrmont = {lat: 36.1694408, lng: -115.1438966};
+
+  // Perform a nearby search.
+  service.nearbySearch(
+      {location: pyrmont , radius: 5000, type:             ['hotels']},
+      function(results, status, pagination) {
+        if (status !== 'OK') return;
+
+        createMarkers(results);
+        moreButton.disabled = !pagination.hasNextPage;
+        getNextPage = pagination.hasNextPage && function() {
+          pagination.nextPage();
+        };
+      });
+
+     // }
+
+
+
+}
+
+function createMarkers(places) {
+  var bounds = new google.maps.LatLngBounds();
+  var placesList = document.getElementById('places');
+
+  for (var i = 0, place; place = places[i]; i++) {
+    var image = {
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+
+    console.log("place names: " + place.name + " ");
+    console.log(place);
+
+    var marker = new google.maps.Marker({
+      map: map,
+      icon: image,
+      title: place.name,
+      position: place.geometry.location
+    });
+
+    var li = document.createElement('li');
+    li.textContent = place.name;
+    placesList.appendChild(li);
+
+    bounds.extend(place.geometry.location);
+
+
+  }
+
+
+  map.fitBounds(bounds);
+
+}
+         */
+    </script>
+
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8
+            });
+
+         
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+            async defer></script>
+    <script>
+
+        var p = 0;
+        var p1 = .1010;
+        var xhr = new XMLHttpRequest();
+        var myClearInterVal = "";
+
+
+        function reqListener() {
+            //res_data = '[' + xhr.responseText + ']';
+            res_data =  xhr.responseText  
+
+            var res = JSON.parse(res_data);
+            //alert(res);
+
+            //console.log("Whhat is h " + res.lat + " " +  res_data.lat);
+            //alert("What is this " + res_data[0].h.lat + " "   + res_data[0].h.lng);
+
+           // var uluru = { lat: res_data.h.lat, lng: res_data.h.lng };
+
+              var uluru = { lat: -25.344 + p1, lng: 131.036 };
+            //var uluru = { lat: -25.344, lng: 131.036 };
+
+            p1 += .20;
+
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+
+            marker.setMap(marker);
+
+            /*
+
+            var uluru = { lat: -25.344, lng: 131.036 };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+            */
+
+            //var marker = new google.maps.Marker({
+            //    position: uluru,
+            //    map: map
+            //});
+
+
+            //res_latitude = res_data[0]; res_longitude = res_data[1]; res_accuracy = res_data[2]; res_speed = res_data[3]; res_time = res_data[4];
+            //var formatted_time = formatTime(res_time);
+            //document.getElementById('info').innerHTML = '<span class="info">Lat: ' + res_latitude + '</span><span class="info">Long: ' + res_longitude + '</span><span class="info">Accuracy: ' + res_accuracy + '</span><span class="info">Speed: ' + res_speed + '</span><span class="info">' + formatted_time + '</span>';
+
+            //initMap();
+            //addMarker();
+        }
+
+        function getData() {
+            console.log("call getData function...");
+            p++;
+            xhr.addEventListener("load", reqListener);
+            xhr.open("GET", "http://localhost:61046/api/values/" + p);
+            xhr.send();
+
+            if (p > 5) {
+
+                clearInterval(myClearInterVal);
+            }
+
+        }
+
+        function init() {
+
+           
+            console.log("call init function...");
+            getData();
+            myClearInterVal=setInterval(getData, 5000);
+        }
+        init();
+    </script>
+   
+
+</body>
+</html>
